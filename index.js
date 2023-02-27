@@ -143,3 +143,98 @@ const canSum = (targetSum, numbers) => {
     return shortestCombo;
     };
   
+//Write a function that accepts a target string and an array of strings. 
+//The function should return a boolean indicating whether or not 
+//the target can be constructed by concantinating elements of the wordBank array. 
+//You may reuse elements of wordBank as many times as needed. 
+
+const canConstruct = (target, wordBank) => {
+  if (target === '') {
+    return true; 
+  }
+  for (let word of wordBank) {
+    if(target.indexOf(word) === 0){
+      const suffix = target.slice(word.length);
+     if (canConstruct(suffix, wordBank) === true) {
+      return true; 
+     }
+    }
+  }
+  return false; 
+}
+
+//canConstruct Memo 
+const canConstruct = (target, wordBank, memo = {}) => {
+  if (target in memo) return memo[target];
+  if (target === '') return true; 
+  
+  for (let word of wordBank) {
+    if(target.indexOf(word) === 0){
+      const suffix = target.slice(word.length);
+     if (canConstruct(suffix, wordBank, memo) === true) {
+      memo[target] = true; 
+      return true; 
+     }
+    }
+  }
+  memo[target] = false; 
+  return false; 
+}
+
+//Write a function that accepts a target string and an array of strings. 
+//The function should return the number of ways that the target can be constructed 
+//by concatenating elementsa of the wordBank array. 
+//You may reuse elements of wordBank as many times as needed. 
+
+const countconstruct = (target, wordBank) => {
+  if (target === '') return 1; 
+  let total = 0; 
+  
+  for(let word of wordBank) {
+    if (target.indexOf(word) === 0) {
+     const num = countConstruct(target.slice(word.length), wordBank);
+     total += num;
+    }
+  }
+  return total; 
+}
+
+//countConstruct Memo 
+const countconstruct = (target, wordBank, memeo ={})
+  if (target in memo) return memo[target];
+  if (target === '') return 1; 
+  let total = 0; 
+  
+  for(let word of wordBank) {
+    if (target.indexOf(word) === 0) {
+     const num = countConstruct(target.slice(word.length), wordBank, memo);
+     total += num;
+    }
+  }
+  memo[target] = total;
+  return total; 
+}
+
+//Write a function that accepts a target string and an array of strings. 
+//The function should return a 2D array containing all of the ways that the target can be constructed 
+//by concatenating elements of the wordBank array. 
+//Each element of the 2D array should represent one combination that constructs the target. 
+//You may reuse elements of wordBank as many times as needed. 
+
+const allConstruct = (target, wordBank) => {
+  if(target === '') return [[]];
+  const result = [];
+  for(let word of wordBank) {
+    if(target.indexOf(word) === 0) {
+      const suffix = target.slice(word.length);
+      const suffixWays = allConstruct(suffix, wordBank);
+      const targetWays = suffixWays.map(way => [word, ...way]);
+      result.push(...targetWays);
+    }
+  }
+  return result; 
+}
+//memo will not effect worst case 
+
+
+
