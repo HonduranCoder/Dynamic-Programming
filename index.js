@@ -13,7 +13,15 @@ const fib = (n, memo = {}) => {
   };
 
 //F.S. Tabulation 
-
+const fib = (n) => {
+  const table = Array(n + 1).fill(0);
+  table[1] = 1; 
+  for (let i = 0; i <= n; i++) {
+   table[i + 1] += table[i]; 
+   table[i + 2] += table[i]; 
+  }
+  return table[n];
+};
   
  //Grid Traveler
  const gridTraveler = (m,n, memo = {}) => {
@@ -31,6 +39,20 @@ const fib = (n, memo = {}) => {
   memo[key] = gridTraveler(m -1, n, memo) + gridTraveler(m, n-1, memo);
     return memo[key]
   };
+
+//G.T. Tabulation 
+const gridTraveler = (m, n) => {
+ const table = Array(m + 1).fill().map(()=> Array(n +1).fill(0));
+ table[1][1] = 1; 
+ for(let i = 0; i <= ,; i++){
+  for(let j = 0; j <= n; j++) {
+   const current = table[i][j]; 
+   if(j+1 <=n) table[i][j+1] += current;
+   if(i+1 <=m) table[i+1][j] += current; 
+  }
+ }
+  return table[m][n]; 
+}; 
   
 //canSum
 //Write a function that takes in a targetSum and an array of the numbers as arguments. 
