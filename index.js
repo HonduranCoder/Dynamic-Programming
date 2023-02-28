@@ -253,6 +253,23 @@ const canConstruct = (target, wordBank, memo = {}) => {
   return false; 
 }
 
+//C.C. Tabulation
+const canConstruct = (target, wordBank) => {
+  const table = Array(target.length + 1).fill(false); 
+  table[0] = true; 
+  
+  for(let i = 0; i <= target.length; i++) {
+    if(table[i] === true) {
+      for(let word of wordBank) {
+        if(target.slice(i, i + word.length) === word) {
+          table[i + word.length] = true; 
+        }
+      }
+    }
+  }
+  return table[target.length]; 
+}
+
 //Write a function that accepts a target string and an array of strings. 
 //The function should return the number of ways that the target can be constructed 
 //by concatenating elementsa of the wordBank array. 
@@ -288,7 +305,19 @@ const countconstruct = (target, wordBank, memeo ={})
 }
 
 //C.C. Tabulation
-
+const countConstruct = (target, wordBank) =>{
+  const table = Array(target.length + 1).fill(0); 
+  table[0] = 1; 
+  
+  for(let i - 0; i <= target.length; i++){
+    for(let word of wordBank){
+      if(target.slice(i, i + word.length) === word) {
+        table[i + word.length] += table[i]; 
+      }
+    }
+  }
+  return tabale[target.length];
+}
 
 //Write a function that accepts a target string and an array of strings. 
 //The function should return a 2D array containing all of the ways that the target can be constructed 
@@ -311,5 +340,20 @@ const allConstruct = (target, wordBank) => {
 }
 //memo will not effect worst case 
 
-
+//C.C. Tabulation 
+const allConstruct = (target, wordBank ) => {
+  const table = Array(target.length + 1).fill().map(() => [])
+  
+  table[0] =[[]]; 
+  
+  for(let i = 0; i <= target.length; i++){
+    for(let word of wordBank){
+      if(target.slice(i, i + word.length) === word) {
+      const new = table[i].map(subArray => [...subArray, word]); 
+      table[i + word.length].push(...new);
+      }
+    }
+  }
+  return table[target.length]
+}
 
