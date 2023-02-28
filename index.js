@@ -196,6 +196,24 @@ const howSum = (targetSum, numbers) => {
     memo[targetSum] = shortestCombo; 
     return shortestCombo;
     };
+    
+ //B.S. Tabulation 
+ const bestSum = (targetSum, numbers) => {
+   const table = Array(targetSum + 1).fill(null); 
+   table[0] = [];
+   
+   for(let i = 0; i <= targetSum; i++){
+    if(table[i] !== null) {
+      for(let num of numbers) {
+      const combo = [...table[i], num]; 
+      if(!table[i+num] || table[i+num].length > combo.length){
+        table[i + num] = combo;
+        }
+      }
+     }
+   }
+   return table[targetSum]
+  };
   
 //Write a function that accepts a target string and an array of strings. 
 //The function should return a boolean indicating whether or not 
