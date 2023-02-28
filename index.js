@@ -87,6 +87,20 @@ const canSum = (targetSum, numbers) => {
     memo[targetSum] = false; 
       return false;
   };
+
+//C.S. Tabulation 
+const canSum = (targetSum, numbers) => {
+ const table = Array(targetSum + 1).fill(false); 
+ table[0] = true; 
+ for(let i = 0; i <= targetSum; i++){
+  if(table[i] === true) {
+   for(let num of numbers) {
+    table[i + num] = true;  
+   }
+  }
+ }
+  return table[targetSum];
+};
   
  //howSum
  //Write a function that takes in a targetSum and an array of numbers. 
@@ -124,6 +138,21 @@ const canSum = (targetSum, numbers) => {
        memo[targetSum] = null; 
        return null; 
       };
+
+//H.S.Tabulation 
+const howSum = (targetSum, numbers) => {
+ const table = Array(targetSum + 1).fill(null); 
+ table[0] = [];
+ 
+  for(let i = 0; i <= targetSum; i++){
+   if(table[i] !== null) {
+    for(let num of numbers) {
+     table[i + num] = [...table[i], num];
+    }
+   }
+  }
+  return table[targetSum];
+};
  
  //bestSum 
  //Write a function that takes in a targetrsum and an array of numbers as arguments. 
